@@ -140,7 +140,7 @@ func {{ $api }}Register(subcommand bool) {
 				{{- else if eq .Type "float64" }}
 					cmd.Flags().Float64("{{ .CLIName }}", 0.0, "{{ .Description }}")
 				{{- else }}
-					cmd.Flags().String("{{ .CLIName }}", "", "{{ .Description }}")
+					cmd.Flags().String("{{ .CLIName }}", "", cli.Markdown("{{ .Description }}"))
 				{{- end }}
 			{{- end }}
 
