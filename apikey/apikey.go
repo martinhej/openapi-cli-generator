@@ -6,7 +6,7 @@ package apikey
 import (
 	"net/http"
 
-	"github.com/danielgtaylor/openapi-cli-generator/cli"
+	"github.com/martinhej/openapi-cli-generator/cli"
 	"gopkg.in/h2non/gentleman.v2/context"
 )
 

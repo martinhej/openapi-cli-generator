@@ -5,7 +5,7 @@ package oauth
 import (
 	"net/url"
 
-	"github.com/danielgtaylor/openapi-cli-generator/cli"
+	"github.com/martinhej/openapi-cli-generator/cli"
 	"github.com/rs/zerolog"
 	"github.com/spf13/viper"
 	"golang.org/x/oauth2"
