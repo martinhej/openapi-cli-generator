@@ -3,7 +3,7 @@ package auth0
 import (
 	"net/url"
 
-	"github.com/danielgtaylor/openapi-cli-generator/oauth"
+	"github.com/martinhej/openapi-cli-generator/oauth"
 )
 
 type config struct {
