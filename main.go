@@ -489,7 +489,7 @@ func generate(cmd *cobra.Command, args []string) {
 		"slug":      slug,
 	}
 
-	data, _ = Asset("templates/commands.tmpl")
+	data, _ = Asset("templates/openapi.tmpl")
 	tmpl, err := template.New("cli").Funcs(funcs).Parse(string(data))
 	if err != nil {
 		panic(err)
