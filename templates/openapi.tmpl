@@ -6,6 +6,7 @@ package main
 import (
 	{{ if .Imports.Fmt }}"fmt"{{ end }}
 	{{ if .Imports.Strings }}"strings"{{ end }}
+	{{ if .Imports.Errors }}"errors"{{ end }}
 
 	"github.com/martinhej/openapi-cli-generator/cli"
 	"github.com/rs/zerolog/log"
