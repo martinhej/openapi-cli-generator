@@ -120,6 +120,10 @@ func {{ $api }}Register(subcommand bool) {
 						log.Fatal().Err(err).Msg("Request failed")
 					}
 
+					if resp.StatusCode >= 400 {
+						log.Fatal().Err(errors.New(fmt.Sprintf("HTTP %d | %s", resp.StatusCode, resp.Bytes()))).Msg("Request failed")
+					}
+
 					var decoded interface{}
 					if err := cli.Unmarshal(resp, &decoded); err != nil {
 						log.Fatal().Err(err).Msg("Unmarshalling response failed")

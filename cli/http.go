@@ -151,10 +151,6 @@ func Unmarshal(resp *gentleman.Response, s interface{}) error {
 		return nil
 	}
 
-	if resp.StatusCode >= 400 {
-		return fmt.Errorf("HTTP %d:\n%s", resp.StatusCode, string(data))
-	}
-
 	ct := resp.Header.Get("content-type")
 	if strings.Contains(ct, "json") || strings.Contains(ct, "javascript") {
 		if err := json.Unmarshal(data, &s); err != nil {
