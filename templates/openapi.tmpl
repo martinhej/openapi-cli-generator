@@ -6,12 +6,12 @@ package main
 import (
 	{{ if .Imports.Fmt }}"fmt"{{ end }}
 	{{ if .Imports.Strings }}"strings"{{ end }}
-	"errors"
 
 	"github.com/martinhej/openapi-cli-generator/cli"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"errors"
 )
 
 {{ $name := .Name }}
@@ -68,7 +68,7 @@ func {{ $api }}Register(subcommand bool) {
 				{{- end }}
 				Example: examples,
 				Args: cobra.MinimumNArgs({{ len .RequiredParams }}),
-				Run: func(cmd *cobra.Command, args []string) {
+				RunE: func(cmd *cobra.Command, args []string) error {
 					server := viper.GetString("server")
 					if server == "" {
 						server = {{ $api }}Servers()[viper.GetInt("server-index")]["url"]
@@ -118,11 +118,7 @@ func {{ $api }}Register(subcommand bool) {
 
 					resp, err := req.Do()
 					if err != nil {
-						log.Fatal().Err(err).Msg("Request failed")
-					}
-
-					if resp.StatusCode >= 400 {
-						log.Fatal().Err(errors.New(fmt.Sprintf("HTTP %d | %s", resp.StatusCode, resp.Bytes()))).Msg("Request failed")
+						return err
 					}
 
 					var decoded interface{}
@@ -133,6 +129,12 @@ func {{ $api }}Register(subcommand bool) {
 					decoded = cli.HandleAfter(cmd, params, resp, decoded)
 
 					cli.Formatter.Format(decoded)
+
+					if resp.StatusCode >= 400 {
+                        return errors.New(fmt.Sprintf("HTTP %d", resp.StatusCode))
+                    }
+
+                    return nil
 				},
 			}
 			root.AddCommand(cmd)
